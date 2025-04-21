@@ -1,0 +1,90 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Source: https://github.com/bojidar-bg/simple-memory-android
+Upstream-Name: Simple Memory Game for Android
+Upstream-Contact: Bojidar Marinov <bojidar.marinov.bg@gmail.com>
+
+Files:
+ *
+Copyright: 2025 Bojidar Marinov
+License: MIT
+
+Files: src/main/res/raw/rollover3.wav src/main/res/raw/click1.wav src/main/res/raw/switch35.wav
+License: CC0
+Copyright: 2014 Kenney.nl
+Source: https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks
+
+Files: images/Gerald-G-Cello-1.svg
+License: CC0
+Source: https://openclipart.org/detail/8394/cello
+
+Files: images/Gerald-G-Celtic-Harp.svg
+License: CC0
+Source: https://openclipart.org/detail/8526/celtic-harp
+
+Files: images/Gerald-G-Fast-Food-Dishes-FF-Menu-2.svg
+License: CC0
+Source: https://openclipart.org/detail/9139/fast-food-drinks-tea-pot
+
+Files: images/Gerald-G-Fast-Food-Lunch-Dinner-FF-Menu-13.svg
+License: CC0
+Source: https://openclipart.org/detail/9086/fast-food-snack-pizza-pepperoni-mushroom
+
+Files: images/Gerald-G-French-Horn.svg
+License: CC0
+Source: https://openclipart.org/detail/8869/french-horn
+
+Files: images/Gerald-G-Geramium-in-a-pot.svg
+License: CC0
+Source: https://openclipart.org/detail/8556/geramium-in-a-pot
+
+Files: images/Gerald-G-GG-anemone-canadensis.svg
+License: CC0
+Source: https://openclipart.org/detail/184/gg-anemone-canadensis
+
+Files: images/Gerald-G-Rubber-Duck.svg
+License: CC0
+Source: https://openclipart.org/detail/8879/rubber-duck
+
+Files: images/Gerald-G-Simple-Fruit-FF-Menu-15.svg
+License: CC0
+Source: https://openclipart.org/detail/8532/simple-fruit-peach
+
+Files: images/Gerald-G-Simple-Fruit-FF-Menu-16.svg
+License: CC0
+Source: https://openclipart.org/detail/8533/simple-fruit-watermelon
+
+Files: images/Gerald-G-Simple-Fruit-FF-Menu-1.svg
+License: CC0
+Source: https://openclipart.org/detail/8534/simple-fruit-strawberry
+
+Files: images/Gerald-G-Simple-Fruit-FF-Menu-2.svg
+License: CC0
+Source: https://openclipart.org/detail/8535/simple-fruit-pear
+
+Files: images/Gerald-G-Simple-Fruit-FF-Menu-3.svg
+License: CC0
+Source: https://openclipart.org/detail/8536/simple-fruit-lemon
+
+Files: images/Gerald-G-Simple-Fruit-FF-Menu-5.svg
+License: CC0
+Source: https://openclipart.org/detail/8538/simple-fruit-apple
+
+Files: images/Gerald-G-Simple-Fruit-FF-Menu.svg
+License: CC0
+Source: https://openclipart.org/detail/8531/simple-fruit-grapes
+
+Files: images/Gerald-G-Simple-Teddy-Bear-bow.svg
+License: CC0
+Source: https://openclipart.org/detail/49009/simple-teddy-bear-with-bowtie
+
+Files: images/Gerald-G-Soft-Ice-Cream-Cones-FF-Menu-3.svg
+License: CC0
+Source: https://openclipart.org/detail/8332/fast-food-desserts-ice-cream-cones-soft-serve
+
+Files: images/Pineapple2.svg
+License: CC0
+Source: https://openclipart.org/detail/248607/pineapple-2
+
+Files: images/Simple-Banana-Outlined.svg
+License: CC0
+Source: https://openclipart.org/detail/211304/simple-banana-outlined
