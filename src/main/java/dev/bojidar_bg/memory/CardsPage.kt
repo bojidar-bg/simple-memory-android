@@ -27,6 +27,7 @@ import kotlin.math.abs
 import kotlin.random.Random
 import android.media.SoundPool
 import android.media.AudioAttributes
+import android.os.Build
 
 
 data class Card(val value: Int, val image: Int, val guessed: Boolean)
@@ -38,7 +39,10 @@ fun CardsPage() {
         SoundPool.Builder()
             .setMaxStreams(3)
             .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).build())
-            .setContext(context)
+            .also{
+                if (Build.VERSION.SDK_INT >= 34)
+                    it.setContext(context)
+            }
             .build()
     }
     val flipCardSound = remember { soundpool.load(context, R.raw.rollover3, 1) }
@@ -46,18 +50,18 @@ fun CardsPage() {
     val correctSound = remember { soundpool.load(context, R.raw.switch35, 1) }
     val audioAmplitude = 0.5f
     val cardShape = RoundedCornerShape(10.dp)
-    val gameKey = remember { mutableStateOf(0) }
+    val gameKey = remember { mutableIntStateOf(0) }
     val size = 12
     val height = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE) 3 else 4
     val width = size / height
     // val size = width * height
     val matching = 2
     val cardColor =
-        remember(gameKey.value) { ->
+        remember(gameKey.intValue) { ->
             Color(Random.nextFloat() * 0.5f + 0.5f, Random.nextFloat() * 0.5f + 0.5f, Random.nextFloat() * 0.5f + 0.5f)
         }
     val (backImage, cards) =
-        remember(gameKey.value) { ->
+        remember(gameKey.intValue) { ->
             val imagesShuffled = images.shuffled().subList(0, size / matching + 1)
             Pair(
                 imagesShuffled.last(),
@@ -67,8 +71,8 @@ fun CardsPage() {
                 }).shuffled().toMutableStateList(),
             )
         }
-    val flippedCards = remember(gameKey.value) { mutableStateMapOf<Int, Boolean>() }
-    val leftoverCards = remember(gameKey.value) { mutableStateOf(size) }
+    val flippedCards = remember(gameKey.intValue) { mutableStateMapOf<Int, Boolean>() }
+    val leftoverCards = remember(gameKey.intValue) { mutableIntStateOf(size) }
     val view = LocalView.current
 
     if (flippedCards.size == matching) {
@@ -87,13 +91,21 @@ fun CardsPage() {
             if (!wrong) {
                 for (cardI in flippedCards.keys) {
                     cards.set(cardI, cards.get(cardI).copy(guessed = true))
-                    leftoverCards.value -= 1
+                    leftoverCards.intValue -= 1
                 }
                 soundpool.play(correctSound, audioAmplitude, audioAmplitude, 0, 0, 1.0f)
-                view.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
+                if (Build.VERSION.SDK_INT >= 30) {
+                    view.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
+                } else {
+                    view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                }
             } else {
                 soundpool.play(wrongSound, audioAmplitude, audioAmplitude, 0, 0, 1.0f)
-                view.performHapticFeedback(HapticFeedbackConstants.REJECT)
+                if (Build.VERSION.SDK_INT >= 30) {
+                    view.performHapticFeedback(HapticFeedbackConstants.REJECT)
+                } else {
+                    view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                }
             }
             flippedCards.clear()
         }
@@ -122,7 +134,11 @@ fun CardsPage() {
                                     // pass
                                 } else if (flippedCards.size < matching) {
                                     soundpool.play(flipCardSound, audioAmplitude, audioAmplitude, 0, 0, 1.0f)
-                                    view.performHapticFeedback(HapticFeedbackConstants.TOGGLE_ON)
+                                    if (Build.VERSION.SDK_INT >= 34) {
+                                        view.performHapticFeedback(HapticFeedbackConstants.TOGGLE_ON)
+                                    } else {
+                                        view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+                                    }
                                     flippedCards.put(cardI, true)
                                 }
                             }.border(3.dp, Color.White, cardShape).background(animatedColor.value, cardShape),
@@ -138,11 +154,11 @@ fun CardsPage() {
             }
         }
 
-        val animatedWin = animateFloatAsState(if (leftoverCards.value <= 0) 1f else 0f, label = "win")
-        if (leftoverCards.value <= 0) {
+        val animatedWin = animateFloatAsState(if (leftoverCards.intValue <= 0) 1f else 0f, label = "win")
+        if (leftoverCards.intValue <= 0) {
             Row(Modifier.fillMaxSize().background(Color(0x66000000)), Arrangement.Center, Alignment.CenterVertically) {
                 Button({
-                    gameKey.value++
+                    gameKey.intValue++
                 }, Modifier.graphicsLayer(scaleX = animatedWin.value, scaleY = animatedWin.value)) {
                     Text(stringResource(R.string.new_game), Modifier.padding(40.dp), style = MaterialTheme.typography.h5)
                 }
